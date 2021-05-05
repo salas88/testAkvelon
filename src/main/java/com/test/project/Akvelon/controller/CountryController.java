@@ -45,4 +45,12 @@ public class CountryController {
         iCountry.deleteById(id);
     }
 
+    @GetMapping("/weather/get")
+    public void myMehod(){
+        String a = "http://api.openweathermap.org/data/2.5/" +
+                "weather?q=London&appid=3db5cb23964dddbc4d9ec184ad260f25";
+
+
+    }
+
 }
