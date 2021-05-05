@@ -3,6 +3,8 @@ package com.test.project.Akvelon.service;
 import com.test.project.Akvelon.dao.CountryDao;
 import com.test.project.Akvelon.entity.Country;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +37,5 @@ public class CountryImpl implements ICountry{
         countryDao.save(country);
         return country;
     }
-    @Scheduled(cron = "1 * * * * ?")
-    public void simpleJob(){
-        System.out.println("a work and it's very simple job");
-    }
+
 }
