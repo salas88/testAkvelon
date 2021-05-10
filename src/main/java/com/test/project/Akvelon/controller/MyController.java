@@ -1,12 +1,11 @@
 package com.test.project.Akvelon.controller;
 
-import com.test.project.Akvelon.entity.Weather;
 import com.test.project.Akvelon.service.WheatherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
 @RequestMapping("/theweather")
@@ -16,8 +15,15 @@ public class MyController {
     private WheatherService wheatherService;
 
     @GetMapping("/a/{countryId}")
-    public Weather get(@PathVariable String countryId){
+    public Object get(@PathVariable String countryId) {
+        try {
+            return ResponseEntity.ok()
+                    .body(wheatherService.getPostsPlainJSON(countryId));
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Your city name has the wrong name," +
+                    " please check and send again");
+        }
 
-        return  wheatherService.getPostsPlainJSON(countryId);
     }
+
 }
